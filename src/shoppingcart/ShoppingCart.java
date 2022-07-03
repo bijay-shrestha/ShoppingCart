@@ -1,19 +1,15 @@
 package shoppingcart;
 
 import java.util.ArrayList;
-
-
 import java.util.Iterator;
 import java.util.List;
-
 import products.Product;
-
 import static java.lang.System.out;
 
 public class ShoppingCart {
     List<CartLine> cartLines = new ArrayList<>();
 
-    public void shoppingCartAction(Product product, String action) {
+    public void processAction(Product product, String action) {
         boolean isAddAction = action.equals("add");
         boolean isRemoveAction = action.equals("remove");
         if (isAddAction) {
@@ -21,10 +17,10 @@ public class ShoppingCart {
         }
         if (isRemoveAction) {
             removeProductFromCartLine(product);
-        } else {
+        }
+        if(!(isAddAction || isRemoveAction)) {
             displayShoppingCartDetails();
         }
-
     }
 
     private void removeProductFromCartLine(Product product) {
@@ -52,10 +48,10 @@ public class ShoppingCart {
     }
 
     private void addNewProductInACartLine(Product product) {
-        CartLine cline = new CartLine();
-        cline.setProduct(product);
-        cline.setQuantity(1);
-        cartLines.add(cline);
+        CartLine cartLine = new CartLine();
+        cartLine.setProduct(product);
+        cartLine.setQuantity(1);
+        cartLines.add(cartLine);
     }
 
     private boolean isProductExistInACartLine(CartLine cartLine, Product product) {
@@ -64,11 +60,11 @@ public class ShoppingCart {
 
     private void displayShoppingCartDetails() {
         out.println("Content of the Shopping Cart:");
-        for (CartLine cline : cartLines) {
-            out.println(cline.getQuantity() + " "
-                    + cline.getProduct().getProductnumber() + " "
-                    + cline.getProduct().getDescription() + " "
-                    + cline.getProduct().getPrice());
+        for (CartLine cartLine : cartLines) {
+            out.println(cartLine.getQuantity() + " "
+                    + cartLine.getProduct().getProductnumber() + " "
+                    + cartLine.getProduct().getDescription() + " "
+                    + cartLine.getProduct().getPrice());
         }
         out.println("Total price =" + getTotalPrice());
     }
